@@ -50,4 +50,5 @@ You can find this script and an article by Ross Killen on email obfuscation at [
 ## To Do
 
 - release this plugin for GPM
+- add a better noscript text
 - maybe give it a per page switch so it can be turned off or on for certain pages
