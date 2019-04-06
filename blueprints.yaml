@@ -1,0 +1,31 @@
+name: Antispam
+version: 0.1.0
+description: Automatic obfuscation of plaintext email addresses in Grav.
+icon: plug
+author:
+  name: Netzhexe.de
+  email: ak@netzhexe.de
+homepage: https://github.com/skinofthesoul/grav-plugin-antispam
+demo: http://demo.yoursite.com
+keywords: grav, plugin, etc
+bugs: https://github.com/skinofthesoul/grav-plugin-antispam/issues
+docs: https://github.com/skinofthesoul/grav-plugin-antispam/blob/develop/README.md
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    text_var:
+      type: text
+      label: PLUGIN_ANTISPAM.TEXT_VARIABLE
+      help: PLUGIN_ANTISPAM.TEXT_VARIABLE_HELP
