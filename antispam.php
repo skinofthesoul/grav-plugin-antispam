@@ -2,7 +2,9 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
-use RocketTheme\Toolbox\Event\Event;
+use Grav\Common\Grav;
+use Grav\Common\Language\Language;
+//use RocketTheme\Toolbox\Event\Event;
 
 /**
  * Class AntispamPlugin
@@ -56,7 +58,7 @@ class AntispamPlugin extends Plugin
     // taken from http://www.celticproductions.net/articles/10/email/php-email-obfuscator.html
     // with minor changes (while instead of for)
     // (preg_replace_callback returns an array)
-    function munge($array)
+    private function munge($array)
     {
       $address = strtolower($array[0]);
       $coded = "";
@@ -120,8 +122,7 @@ class AntispamPlugin extends Plugin
       "document.write(\"<a href='mailto:\"+link+\"'>\"+link+\"</a>\")\n" .
       "\n".
       "//-"."->\n" .
-      "<" . "/script><noscript>N/A" .
-      "<"."/noscript>";
+      "<" . "/script><noscript>".$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])."<"."/noscript>";
       return $txt;
     }
 }

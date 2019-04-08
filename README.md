@@ -1,6 +1,6 @@
 # Antispam Plugin
 
-The **Antispam** Plugin is for [Grav CMS](http://github.com/getgrav/grav). It will look for plaintext email addresses in your Grav pages and turn them into javascript encoded mailto links.
+This **Antispam** Plugin is for [Grav CMS](http://github.com/getgrav/grav). It will look for plaintext email addresses in your Grav pages and turn them into javascript encoded mailto links.
 
 ## Installation
 
@@ -8,7 +8,13 @@ Installing the Antispam plugin can be done in one of two ways. The GPM (Grav Pac
 
 ### GPM Installation (Preferred)
 
-I'm still working on this, coming soon!
+The simplest way to install this plugin is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:
+
+    bin/gpm install antispam
+
+This will install the antispam plugin into your `/user/plugins` directory within Grav. Its files can be found under `/your/site/grav/user/plugins/antispam`.
+
+
 
 ### Manual Installation
 
@@ -33,6 +39,8 @@ enabled: true
 
 Note that if you use the admin plugin, a file with your configuration, and named antispam.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.
 
+If you want to change the text that will appear in the `<noscript>` section of the encrypted addresses, copy the language contents of `user/plugins/antispam/languages.yaml` that you wish to change to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
+
 ## Usage
 
 Just install and enable it and enjoy spam protection for your email addresses! Please note that you should **only put plain email addresses in your pages, without any mailto links**. Those will be added by the plugin.
@@ -47,8 +55,8 @@ All credit goes to the creators of the original script, which I simply assembled
 
 You can find this script and an article by Ross Killen on email obfuscation at [celticproductions.net](http://www.celticproductions.net/articles/10/email/php-email-obfuscator.html).
 
+
 ## To Do
 
-- release this plugin for GPM
-- add a better noscript text
+- fix an odd bug where every *other* noscript output on a page gets eaten somehow (everything works fine with javascript enabled)
 - maybe give it a per page switch so it can be turned off or on for certain pages

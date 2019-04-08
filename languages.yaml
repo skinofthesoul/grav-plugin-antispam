@@ -1,4 +1,7 @@
 en:
   PLUGIN_ANTISPAM:
-    TEXT_VARIABLE: Text Variable
-    TEXT_VARIABLE_HELP: Text to add to the top of a page
+    NOSCRIPT: '[email address is javascript encrypted]'
+
+de:
+  PLUGIN_ANTISPAM:
+    NOSCRIPT: '[Mailadresse ist Javascript-verschlüsselt]'
