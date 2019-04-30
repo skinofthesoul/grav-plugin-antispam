@@ -1,3 +1,10 @@
+# v1.1.1
+##  30-04-2019
+
+1. [](#improved)
+    * changed icon from plug to at
+    * minor edits and more todo in readme
+
 # v1.1.0
 ##  08-04-2019
 
