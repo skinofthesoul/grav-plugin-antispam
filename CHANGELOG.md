@@ -1,3 +1,10 @@
+# v1.1.2
+##  10-05-2019
+
+1. [](#bugfix)
+    * email addresses containing hyphens or underscores work now
+
+
 # v1.1.1
 ##  30-04-2019
 

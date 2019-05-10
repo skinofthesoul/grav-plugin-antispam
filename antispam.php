@@ -62,7 +62,7 @@ class AntispamPlugin extends Plugin
     {
       $address = strtolower($array[0]);
       $coded = "";
-      $unmixedkey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.@";
+      $unmixedkey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.@-_";
       $inprogresskey = $unmixedkey;
       $mixedkey = "";
       $unshuffled = strlen($unmixedkey);
