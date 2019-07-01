@@ -43,9 +43,9 @@ If you want to change the text that will appear in the `<noscript>` section of t
 
 ### Notes
 
-Please keep in mind that this script will not find everything that might be a valid email address as it uses a fairly simple regex expression. If you a use case with email addresses that do not get converted, please open an issue and I'll see what I can do!
+Please keep in mind that this script will not find everything that might be a valid email address as it uses a fairly simple regex expression. If you have a use case with email addresses that do not get converted, please open an issue and I'll see what I can do!
 
-This especially includes email addresses of domains that start with a digit. These will not get converted to avoid clashes with responsive images like `image@2x.jpg`.
+This especially includes email addresses of domains that only consist of a digit followed by an x. These will not get converted to avoid clashes with responsive images like `image@2x.jpg`.
 
 ## Usage
 

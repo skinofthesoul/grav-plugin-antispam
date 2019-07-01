@@ -1,3 +1,9 @@
+# v1.2.1
+##  01-07-2019
+
+1. [](#improved)
+    * modified regex again to only exclude domains that consist of only a digit followed by an x
+
 # v1.2.0
 ##  01-07-2019
 
