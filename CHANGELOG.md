@@ -1,3 +1,9 @@
+# v1.2.0
+##  01-07-2019
+
+1. [](#bugfix)
+    * changed regex to exclude domains that start with a digit, to avoid replacing responsive images like `image@2x.jpg`
+
 # v1.1.3
 ##  14-05-2019
 

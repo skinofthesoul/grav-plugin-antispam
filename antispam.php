@@ -49,8 +49,8 @@ class AntispamPlugin extends Plugin
     {
         $content = $this->grav->output;
 
-        // find plain text email addresses and replace them with munge() results
-        $content = preg_replace_callback('/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/', array(get_class($this), 'munge'), $content);
+        // find plain text email addresses and replace them with munge() results, excluding responsive images
+        $content = preg_replace_callback('/([a-zA-Z0-9._%+-]+@[a-zA-Z]{1}[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/', array(get_class($this), 'munge'), $content);
 
         $this->grav->output = $content;
     }

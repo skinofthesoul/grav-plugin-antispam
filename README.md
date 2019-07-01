@@ -41,6 +41,12 @@ Note that if you use the admin plugin, a file with your configuration, and named
 ### Custom noscript text
 If you want to change the text that will appear in the `<noscript>` section of the encrypted addresses, copy the language contents of `user/plugins/antispam/languages.yaml` that you wish to change to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
 
+### Notes
+
+Please keep in mind that this script will not find everything that might be a valid email address as it uses a fairly simple regex expression. If you a use case with email addresses that do not get converted, please open an issue and I'll see what I can do!
+
+This especially includes email addresses of domains that start with a digit. These will not get converted to avoid clashes with responsive images like `image@2x.jpg`.
+
 ## Usage
 
 Just install and enable it and enjoy spam protection for your email addresses! Please note that you should **only put plain email addresses in your pages, without any mailto links**. Those will be added by the plugin.
