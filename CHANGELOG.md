@@ -1,5 +1,5 @@
 # v1.2.2
-##  01-07-2019
+##  02-07-2019
 
 1. [](#bugfix)
     * bumped the version number in `blueprints.yaml`
