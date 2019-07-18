@@ -81,7 +81,6 @@ class AntispamPlugin extends Plugin
       $shift = strlen($address);
 
       $txt = "<script type=\"text/javascript\" language=\"javascript\">\n" .
-      "<!-"."-\n" .
       "// Email obfuscator script 2.1 by Tim Williams, University of Arizona\n".
       "// Random encryption key feature by Andrew Moulden, Site Engineering Ltd\n".
       "// PHP version coded by Ross Killen, Celtic Productions Ltd\n".
@@ -121,8 +120,8 @@ class AntispamPlugin extends Plugin
       " }\n".
       "document.write(\"<a href='mailto:\"+link+\"'>\"+link+\"</a>\")\n" .
       "\n".
-      "//-"."->\n" .
       "<" . "/script><noscript>".$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])."<"."/noscript>";
+      //dump($txt);
       return $txt;
     }
 }

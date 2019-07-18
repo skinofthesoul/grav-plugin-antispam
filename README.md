@@ -47,6 +47,8 @@ Please keep in mind that this script will not find everything that might be a va
 
 This especially includes email addresses of domains that only consist of a digit followed by an x. These will not get converted to avoid clashes with responsive images like `image@2x.jpg`.
 
+Please notice also that the inline javascript is not wrapped in CDATA tags (nor html comment tags). If you need XHTML compatibility, please file an issue and I'll see what I can do!
+
 ## Usage
 
 Just install and enable it and enjoy spam protection for your email addresses! Please note that you should **only put plain email addresses in your pages, without any mailto links**. Those will be added by the plugin.

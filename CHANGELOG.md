@@ -1,3 +1,9 @@
+# v1.2.3
+##  18-07-2019
+
+1. [](#improved)
+    * took out html comment tags around the inline javascript to fix a [compatibility issue](https://github.com/skinofthesoul/grav-plugin-antispam/issues/3) with the [minifyHTML](https://github.com/jimblue/grav-plugin-minify-html) plugin
+
 # v1.2.2
 ##  02-07-2019
 
