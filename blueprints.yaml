@@ -1,5 +1,5 @@
 name: Antispam
-version: 1.2.3
+version: 1.2.4
 description: Automatic obfuscation of plaintext email addresses in Grav pages.
 icon: at
 author:
@@ -8,7 +8,7 @@ author:
 homepage: https://github.com/skinofthesoul/grav-plugin-antispam
 keywords: grav, plugin, spam protection, email obfuscation
 bugs: https://github.com/skinofthesoul/grav-plugin-antispam/issues
-docs: https://github.com/skinofthesoul/grav-plugin-antispam/blob/develop/README.md
+docs: https://github.com/skinofthesoul/grav-plugin-antispam/blob/master/README.md
 license: MIT
 
 form:

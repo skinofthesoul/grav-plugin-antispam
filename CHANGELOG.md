@@ -1,3 +1,9 @@
+# v1.2.4
+##  02-08-2019
+
+1. [](#bugfix)
+    * fixed link to README in `blueprints.yaml`
+
 # v1.2.3
 ##  18-07-2019
 
