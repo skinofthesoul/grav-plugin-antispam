@@ -51,7 +51,7 @@ Please notice also that the inline javascript is not wrapped in CDATA tags (nor 
 
 ## Usage
 
-Just install and enable it and enjoy spam protection for your email addresses! Please note that you should **only put plain email addresses in your pages, without any mailto links**. Those will be added by the plugin.
+Just install and enable it and enjoy spam protection for your email addresses! Please note that **you do not need to put any mailto links around your email addresses in your pages** (but you can, as of v1.2.5). Those will be added by the plugin.
 
 ## Credits
 
@@ -67,5 +67,4 @@ You can find this script along with an article by Ross Killen on email obfuscati
 ## To Do
 
 - fix an odd bug where every *other* noscript output on a page gets eaten somehow (everything works fine with javascript enabled) – some help with this would be much appreciated, please see [this issue](https://github.com/skinofthesoul/grav-plugin-antispam/issues/1)
-- check for existing mailto links and replace the whole thing in that case
 - maybe give it a per page switch so it can be turned off or on for certain pages (does anybody need that?)

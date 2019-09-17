@@ -1,3 +1,10 @@
+# v1.2.5
+##  17-09-2019
+
+1. [](#improved)
+    * existing mailto links are now converted properly too (fixes a compatibility issue with the flex-directory plugin)
+    * README.md updated to reflect this change
+
 # v1.2.4
 ##  02-08-2019
 

@@ -49,6 +49,11 @@ class AntispamPlugin extends Plugin
     {
         $content = $this->grav->output;
 
+        // find mailto links and turn them into plain text email addresses
+        // (problem occurs with the flex-directory plugin)
+        $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>`ism';
+        $content = preg_replace($r, '$4', $content);
+
         // find plain text email addresses and replace them with munge() results, excluding responsive images
         $content = preg_replace_callback('/([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/', array(get_class($this), 'munge'), $content);
 
