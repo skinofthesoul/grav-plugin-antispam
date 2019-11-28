@@ -1,3 +1,10 @@
+# v1.2.6
+##  28-11-2019
+
+1. [](#improved)
+    * the plugin can now be disabled for individual pages
+    * README.md updated to reflect this change
+
 # v1.2.5
 ##  17-09-2019
 

@@ -38,6 +38,10 @@ enabled: true
 
 Note that if you use the admin plugin, a file with your configuration, and named antispam.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.
 
+### Disable for individual pages
+
+Putting `antispam: false` in the frontmatter of a page will disable the processing for this page. This may be useful if you have a form where people enter their email addresses, Antispam may break the processing of such a form.
+
 ### Custom noscript text
 If you want to change the text that will appear in the `<noscript>` section of the encrypted addresses, copy the language contents of `user/plugins/antispam/languages.yaml` that you wish to change to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
 

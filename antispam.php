@@ -4,7 +4,7 @@ namespace Grav\Plugin;
 use Grav\Common\Plugin;
 use Grav\Common\Grav;
 use Grav\Common\Language\Language;
-//use RocketTheme\Toolbox\Event\Event;
+use RocketTheme\Toolbox\Event\Event;
 
 /**
  * Class AntispamPlugin
@@ -47,17 +47,24 @@ class AntispamPlugin extends Plugin
 
     public function onOutputGenerated()
     {
-        $content = $this->grav->output;
+        $header = $this->grav['page']->header();
+        //dump($header->title); exit;
 
-        // find mailto links and turn them into plain text email addresses
-        // (problem occurs with the flex-directory plugin)
-        $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>`ism';
-        $content = preg_replace($r, '$4', $content);
+        if (isset($header->antispam) && $header->antispam == false) {
+          // don't munge the email form or whatever
+        } else {
+          $content = $this->grav->output;
 
-        // find plain text email addresses and replace them with munge() results, excluding responsive images
-        $content = preg_replace_callback('/([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/', array(get_class($this), 'munge'), $content);
+          // find mailto links and turn them into plain text email addresses
+          // (problem occurs with the flex-directory plugin)
+          $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>`ism';
+          $content = preg_replace($r, '$4', $content);
 
-        $this->grav->output = $content;
+          // find plain text email addresses and replace them with munge() results, excluding responsive images
+          $content = preg_replace_callback('/([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/', array(get_class($this), 'munge'), $content);
+
+          $this->grav->output = $content;
+        }
     }
 
     // taken from http://www.celticproductions.net/articles/10/email/php-email-obfuscator.html
