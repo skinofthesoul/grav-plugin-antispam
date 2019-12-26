@@ -1,5 +1,5 @@
 name: Antispam
-version: 1.2.6
+version: 1.3
 description: Automatic obfuscation of plaintext email addresses in Grav pages.
 icon: at
 author:

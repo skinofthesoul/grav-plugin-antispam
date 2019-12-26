@@ -51,6 +51,8 @@ Please keep in mind that this script will not find everything that might be a va
 
 This especially includes email addresses of domains that only consist of a digit followed by an x. These will not get converted to avoid clashes with responsive images like `image@2x.jpg`.
 
+As of version 1.3, you can also wrap an image in a mailto link and it will get encrypted correctly. However, this has made the regular expressions in my code a lot more complex and thus error prone, so you may well run into issues I have not foreseen. For the moment this means that plain text email addresses must be preceded by either whitespace or the `>` character *in the html code that the markdown gets turned into*. This should usually be the case, but if you should happen to get unexpected results on your page, please file an issue and **let me know what your input was**.
+
 Please notice also that the inline javascript is not wrapped in CDATA tags (nor html comment tags). If you need XHTML compatibility, please file an issue and I'll see what I can do!
 
 ## Usage
@@ -71,4 +73,3 @@ You can find this script along with an article by Ross Killen on email obfuscati
 ## To Do
 
 - fix an odd bug where every *other* noscript output on a page gets eaten somehow (everything works fine with javascript enabled) – some help with this would be much appreciated, please see [this issue](https://github.com/skinofthesoul/grav-plugin-antispam/issues/1)
-- maybe give it a per page switch so it can be turned off or on for certain pages (does anybody need that?)

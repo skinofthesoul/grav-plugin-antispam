@@ -57,11 +57,13 @@ class AntispamPlugin extends Plugin
 
           // find mailto links and turn them into plain text email addresses
           // (problem occurs with the flex-directory plugin)
-          $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>`ism';
-          $content = preg_replace($r, '$4', $content);
+          // also taking care of linked images
+          $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
+          $content = preg_replace_callback($r, array(get_class($this), 'munge'), $content);
 
-          // find plain text email addresses and replace them with munge() results, excluding responsive images
-          $content = preg_replace_callback('/([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/', array(get_class($this), 'munge'), $content);
+          // find plain text email addresses and replace them with munge() results, excluding responsive images and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
+          $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/';
+          $content = preg_replace_callback($r2, array(get_class($this), 'munge'), $content);
 
           $this->grav->output = $content;
         }
@@ -70,9 +72,14 @@ class AntispamPlugin extends Plugin
     // taken from http://www.celticproductions.net/articles/10/email/php-email-obfuscator.html
     // with minor changes (while instead of for)
     // (preg_replace_callback returns an array)
-    private function munge($array)
+    private function munge($array, $string = "link")
     {
-      $address = strtolower($array[0]);
+      //dump($array); exit;
+      if (count($array) < 4) {
+        $address = strtolower($array[1]);
+      } else {
+        $address = strtolower($array[2]);
+      }
       $coded = "";
       $unmixedkey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.@-_";
       $inprogresskey = $unmixedkey;
@@ -114,6 +121,9 @@ class AntispamPlugin extends Plugin
           }
       }
 
+      if (array_key_exists(4, $array)) {
+        $string = "'".$array[4]."'";
+      }
 
       $txt .= "\ncoded = \"" . $coded . "\"\n" .
       " key = \"".$cipher."\"\n".
@@ -130,7 +140,7 @@ class AntispamPlugin extends Plugin
       " link += (key.charAt(ltr))\n".
       " }\n".
       " }\n".
-      "document.write(\"<a href='mailto:\"+link+\"'>\"+link+\"</a>\")\n" .
+      "document.write(\"<a href='mailto:\"+link+\"'>\"+".$string."+\"</a>\")\n" .
       "\n".
       "<" . "/script><noscript>".$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])."<"."/noscript>";
       //dump($txt);

@@ -1,3 +1,11 @@
+# v1.3
+##  26-12-2019
+
+1. [](#new)
+    * you can now wrap images in a mailto link and these will also get encrypted; please refer to the README for caveats
+1. [](#bugfix)
+    * the bug where every other noscript text was getting vanished when javascript was disabled seems to have gone away now
+
 # v1.2.6
 ##  28-11-2019
 
