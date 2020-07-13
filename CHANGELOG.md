@@ -1,3 +1,9 @@
+# v1.4
+##  13-07-2020
+
+1. [](#bugfix)
+    * email addresses wrapped in mailto: tags now get properly encrypted in the linked text as well
+
 # v1.3
 ##  26-12-2019
 
