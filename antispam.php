@@ -121,7 +121,7 @@ class AntispamPlugin extends Plugin
           }
       }
 
-      if (array_key_exists(4, $array)) {
+      if (array_key_exists(4, $array) && strpos($array[4], '<img') === 0) {
         $string = "'".$array[4]."'";
       }
 
