@@ -88,7 +88,7 @@ class AntispamPlugin extends Plugin
       while ($unshuffled > 0)
       {
           $ranpos = mt_rand(0, $unshuffled-1);
-          $nextchar = $inprogresskey{$ranpos};
+          $nextchar = $inprogresskey[$ranpos];
           $mixedkey .= $nextchar;
           $before = substr($inprogresskey,0,$ranpos);
           $after = substr($inprogresskey,$ranpos+1,$unshuffled-($ranpos+1));
@@ -109,15 +109,15 @@ class AntispamPlugin extends Plugin
 
       for ($j=0; $j<strlen($address); $j++)
       {
-          if (strpos($cipher,$address{$j}) == -1 )
+          if (strpos($cipher,$address[$j]) == -1 )
           {
-              $chr = $address{$j};
-              $coded .= $address{$j};
+              $chr = $address[$j];
+              $coded .= $address[$j];
           }
           else
           {
-              $chr = (strpos($cipher,$address{$j}) + $shift) % strlen($cipher);
-              $coded .= $cipher{$chr};
+              $chr = (strpos($cipher,$address[$j]) + $shift) % strlen($cipher);
+              $coded .= $cipher[$chr];
           }
       }
 

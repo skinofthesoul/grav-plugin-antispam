@@ -1,3 +1,9 @@
+# v1.4.1
+##  24-11-2020
+
+1. [](#bugfix)
+    * changed curly braces to square ones for accessing array items since that notation is deprecated as of PHP 7.4
+
 # v1.4
 ##  13-07-2020
 
