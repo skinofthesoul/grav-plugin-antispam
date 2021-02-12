@@ -1,7 +1,9 @@
 en:
   PLUGIN_ANTISPAM:
     NOSCRIPT: '[email address is javascript encrypted]'
+    TARGET_BLANK: 'add target="_blank" to mailto links'
 
 de:
   PLUGIN_ANTISPAM:
     NOSCRIPT: '[Mailadresse ist Javascript-verschlüsselt]'
+    TARGET_BLANK: 'als Ziel für erzeugte Mailto-Links target="_blank" setzen'

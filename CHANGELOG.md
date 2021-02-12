@@ -1,3 +1,9 @@
+# v1.4.2
+##  13-02-2021
+
+1. [](#improved)
+    * added option in plugin settings to set target="\_blank" on mailto links
+
 # v1.4.1
 ##  24-11-2020
 

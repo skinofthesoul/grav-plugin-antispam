@@ -125,6 +125,12 @@ class AntispamPlugin extends Plugin
         $string = "'".$array[4]."'";
       }
 
+      // check plugin settings
+      $config = $this->config();
+      $target = "";
+      if ($config['target']) {
+        $target = " target='_blank'";
+      }
       $txt .= "\ncoded = \"" . $coded . "\"\n" .
       " key = \"".$cipher."\"\n".
       " shift=coded.length\n".
@@ -140,7 +146,7 @@ class AntispamPlugin extends Plugin
       " link += (key.charAt(ltr))\n".
       " }\n".
       " }\n".
-      "document.write(\"<a href='mailto:\"+link+\"'>\"+".$string."+\"</a>\")\n" .
+      "document.write(\"<a href='mailto:\"+link+\"'$target>\"+".$string."+\"</a>\")\n" .
       "\n".
       "<" . "/script><noscript>".$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])."<"."/noscript>";
       //dump($txt);

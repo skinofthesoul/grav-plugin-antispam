@@ -1,5 +1,5 @@
 name: Antispam
-version: 1.4.1
+version: 1.4.2
 description: Automatic obfuscation of plain text email addresses in Grav pages.
 icon: at
 author:
@@ -18,6 +18,16 @@ form:
       type: toggle
       label: PLUGIN_ADMIN.PLUGIN_STATUS
       highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    target:
+      type: toggle
+      label: PLUGIN_ANTISPAM.TARGET_BLANK
+      highlight: 0
       default: 0
       options:
         1: PLUGIN_ADMIN.ENABLED
