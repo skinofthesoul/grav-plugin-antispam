@@ -1,3 +1,10 @@
+# v1.5
+##  16-03-2021
+
+1. [](#bugfix)
+    * fixed output of mailto links with title tags
+    * added default settings for target (thanks @JohnWalkerx!)
+
 # v1.4.2
 ##  13-02-2021
 
