@@ -58,6 +58,7 @@ class AntispamPlugin extends Plugin
           // find mailto links and turn them into plain text email addresses
           // (problem occurs with the flex-directory plugin)
           // also taking care of linked images
+          //$r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
           $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
           $content = preg_replace_callback($r, array(get_class($this), 'munge'), $content);
 
@@ -74,7 +75,7 @@ class AntispamPlugin extends Plugin
     // (preg_replace_callback returns an array)
     private function munge($array, $string = "link")
     {
-      //dump($array); exit;
+      //dump($array); //exit;
       if (count($array) < 4) {
         $address = strtolower($array[1]);
       } else {
@@ -121,8 +122,15 @@ class AntispamPlugin extends Plugin
           }
       }
 
-      if (array_key_exists(4, $array) && strpos($array[4], '<img') === 0) {
+      if (array_key_exists(4, $array) && (strpos($array[4], '<img') === 0 || $array[4] != $array[2])) {
         $string = "'".$array[4]."'";
+      }
+
+      if (array_key_exists(3, $array) && trim($array[3]) != "") {
+        $title = "'".$array[3]."'";
+        $title = str_replace('"', '\"', $title);
+      } else {
+        $title = "";
       }
 
       // check plugin settings
@@ -146,7 +154,7 @@ class AntispamPlugin extends Plugin
       " link += (key.charAt(ltr))\n".
       " }\n".
       " }\n".
-      "document.write(\"<a href='mailto:\"+link+\"'$target>\"+".$string."+\"</a>\")\n" .
+      "document.write(\"<a href='mailto:\"+link+\"'$target $title>\"+".$string."+\"</a>\")\n" .
       "\n".
       "<" . "/script><noscript>".$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])."<"."/noscript>";
       //dump($txt);
