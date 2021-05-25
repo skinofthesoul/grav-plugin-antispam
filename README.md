@@ -69,7 +69,3 @@ All credit goes to the creators of the original script, which I simply assembled
 
 You can find this script along with an article by Ross Killen on email obfuscation at [celticproductions.net](http://www.celticproductions.net/articles/10/email/php-email-obfuscator.html).
 
-
-## To Do
-
-- fix an odd bug where every *other* noscript output on a page gets eaten somehow (everything works fine with javascript enabled) – some help with this would be much appreciated, please see [this issue](https://github.com/skinofthesoul/grav-plugin-antispam/issues/1)

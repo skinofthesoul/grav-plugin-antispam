@@ -41,19 +41,19 @@ class AntispamPlugin extends Plugin
 
         // Enable the main event we are interested in
         $this->enable([
-            'onOutputGenerated' => ['onOutputGenerated', 0]
+            'onPageContentProcessed' => ['onPageContentProcessed', 0]
         ]);
     }
 
-    public function onOutputGenerated()
+    public function onPageContentProcessed(Event $event)
     {
-        $header = $this->grav['page']->header();
-        //dump($header->title); exit;
+        $page = $event['page'];
+        $header = $page->header();
 
         if (isset($header->antispam) && $header->antispam == false) {
           // don't munge the email form or whatever
         } else {
-          $content = $this->grav->output;
+          $content = $page->content();
 
           // find mailto links and turn them into plain text email addresses
           // (problem occurs with the flex-directory plugin)
@@ -66,7 +66,7 @@ class AntispamPlugin extends Plugin
           $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/';
           $content = preg_replace_callback($r2, array(get_class($this), 'munge'), $content);
 
-          $this->grav->output = $content;
+          $page->setRawContent($content);
         }
     }
 
@@ -75,7 +75,6 @@ class AntispamPlugin extends Plugin
     // (preg_replace_callback returns an array)
     private function munge($array, $string = "link")
     {
-      //dump($array); //exit;
       if (count($array) < 4) {
         $address = strtolower($array[1]);
       } else {
@@ -157,7 +156,6 @@ class AntispamPlugin extends Plugin
       "document.write(\"<a href='mailto:\"+link+\"'$target $title>\"+".$string."+\"</a>\")\n" .
       "\n".
       "<" . "/script><noscript>".$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])."<"."/noscript>";
-      //dump($txt);
       return $txt;
     }
 }

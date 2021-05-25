@@ -1,3 +1,10 @@
+# v1.5.1
+##  25-05-2021
+
+1. [](#improved)
+    * changed code to add encryption before caching, not on output
+    * removed mention of an old bug that has since been fixed from README
+
 # v1.5
 ##  16-03-2021
 
