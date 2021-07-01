@@ -1,9 +1,13 @@
 en:
   PLUGIN_ANTISPAM:
     NOSCRIPT: '[email address is javascript encrypted]'
+    NOSCRIPT_LABEL: 'noscript text to display instead of email address if javascript is disabled'
     TARGET_BLANK: 'add target="_blank" to mailto links'
+    CHANGE_ON_OUTPUT: 'add encryption on output (not cacheable, but can avoid conflicts with other plugins)'
 
 de:
   PLUGIN_ANTISPAM:
     NOSCRIPT: '[Mailadresse ist Javascript-verschlüsselt]'
+    NOSCRIPT_LABEL: 'Text, der statt der Mailadresse bei deaktiviertem Javascript angezeigt wird'
     TARGET_BLANK: 'als Ziel für erzeugte Mailto-Links target="_blank" setzen'
+    CHANGE_ON_OUTPUT: 'Verschlüsselung erst beim Output einbauen (kann nicht im Cache gespeichert werden, vermeidet aber Konflikte mit manchen anderen Plugins)'
