@@ -1,4 +1,3 @@
 enabled: true
 target: false
-noscript: PLUGIN_ANTISPAM.NOSCRIPT
-change_on_output: 0
+change_on_output: false
