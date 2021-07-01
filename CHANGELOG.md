@@ -1,3 +1,9 @@
+# v1.5.2
+##  10-07-2021
+
+1. [](#improved)
+    * new option in settings to add encryption on output (without caching), to avoid conflict with other output-altering plugins such as Automagic Images
+
 # v1.5.1
 ##  25-05-2021
 

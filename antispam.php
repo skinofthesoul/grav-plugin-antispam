@@ -40,9 +40,15 @@ class AntispamPlugin extends Plugin
         }
 
         // Enable the main event we are interested in
-        $this->enable([
-            'onPageContentProcessed' => ['onPageContentProcessed', 0]
-        ]);
+        if ($this->config->get('plugins.antispam.change_on_output')) {
+          $this->enable([
+              'onOutputGenerated' => ['onOutputGenerated', 0]
+          ]);
+        } else {
+          $this->enable([
+              'onPageContentProcessed' => ['onPageContentProcessed', 0]
+          ]);
+        }
     }
 
     public function onPageContentProcessed(Event $event)
@@ -67,6 +73,30 @@ class AntispamPlugin extends Plugin
           $content = preg_replace_callback($r2, array(get_class($this), 'munge'), $content);
 
           $page->setRawContent($content);
+        }
+    }
+
+    public function onOutputGenerated()
+    {
+        $header = $this->grav['page']->header();
+
+        if (isset($header->antispam) && $header->antispam == false) {
+          // don't munge the email form or whatever
+        } else {
+          $content = $this->grav->output;
+
+          // find mailto links and turn them into plain text email addresses
+          // (problem occurs with the flex-directory plugin)
+          // also taking care of linked images
+          //$r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
+          $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
+          $content = preg_replace_callback($r, array(get_class($this), 'munge'), $content);
+
+          // find plain text email addresses and replace them with munge() results, excluding responsive images and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
+          $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/';
+          $content = preg_replace_callback($r2, array(get_class($this), 'munge'), $content);
+
+          $this->grav->output = $content;
         }
     }
 
