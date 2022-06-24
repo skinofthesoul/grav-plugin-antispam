@@ -65,8 +65,8 @@ class AntispamPlugin extends Plugin
           // (problem occurs with the flex-directory plugin)
           // also taking care of linked images
           //$r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
-          $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
-          $content = preg_replace_callback($r, array(get_class($this), 'munge'), $content);
+          $r1 = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
+          $content = preg_replace_callback($r1, array(get_class($this), 'munge'), $content);
 
           // find plain text email addresses and replace them with munge() results, excluding responsive images and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
           $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/';
@@ -111,7 +111,7 @@ class AntispamPlugin extends Plugin
         $address = strtolower($array[2]);
       }
       $coded = "";
-      $unmixedkey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.@-_";
+      $unmixedkey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.@-_?=&";
       $inprogresskey = $unmixedkey;
       $mixedkey = "";
       $unshuffled = strlen($unmixedkey);
@@ -155,11 +155,15 @@ class AntispamPlugin extends Plugin
         $string = "'".$array[4]."'";
       }
 
-      if (array_key_exists(3, $array) && trim($array[3]) != "") {
-        $title = "'".$array[3]."'";
-        $title = str_replace('"', '\"', $title);
-      } else {
-        $title = "";
+      $title = "";
+      $append = "";
+      if (array_key_exists(3, $array)) {
+        if (strpos(trim($array[3]), 'title') === 0) {
+          $title = trim($array[3]);
+          $title = str_replace('"', '\"', $title);
+        } else {
+          $append = trim($array[3]);
+        }
       }
 
       // check plugin settings

@@ -1,3 +1,9 @@
+# v1.5.3
+##  24-06-2022
+
+1. [](#bugfix)
+    * parameters in mailto links are now possible (e.g. ?subject=something&body=anotherthing)
+
 # v1.5.2
 ##  10-07-2021
 
