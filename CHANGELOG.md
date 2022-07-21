@@ -1,3 +1,9 @@
+# v1.5.4
+##  21-07-2022
+
+1. [](#bugfix)
+    * parameters in mailto links can now contain urls
+
 # v1.5.3
 ##  24-06-2022
 
