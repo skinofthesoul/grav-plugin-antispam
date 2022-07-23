@@ -129,7 +129,7 @@ class AntispamPlugin extends Plugin
 
       $shift = strlen($address);
 
-      $txt = "<script type=\"text/javascript\" language=\"javascript\">\n" .
+      $txt = "<script>\n" .
       "// Email obfuscator script 2.1 by Tim Williams, University of Arizona\n".
       "// Random encryption key feature by Andrew Moulden, Site Engineering Ltd\n".
       "// PHP version coded by Ross Killen, Celtic Productions Ltd\n".

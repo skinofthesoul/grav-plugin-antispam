@@ -1,3 +1,9 @@
+# v1.5.5
+##  23-07-2022
+
+1. [](#improved)
+    * type and language attributes removed from script output
+
 # v1.5.4
 ##  21-07-2022
 
