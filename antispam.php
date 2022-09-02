@@ -93,7 +93,7 @@ class AntispamPlugin extends Plugin
           $content = preg_replace_callback($r, array(get_class($this), 'munge'), $content);
 
           // find plain text email addresses and replace them with munge() results, excluding responsive images and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
-          $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/';
+          $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20})/';
           $content = preg_replace_callback($r2, array(get_class($this), 'munge'), $content);
 
           $this->grav->output = $content;

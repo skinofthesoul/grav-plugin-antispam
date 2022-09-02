@@ -1,3 +1,9 @@
+# v1.5.6
+##  02-09-2022
+
+1. [](#bugfix)
+    * long top level domains like .solutions also work now
+
 # v1.5.5
 ##  23-07-2022
 
