@@ -64,11 +64,11 @@ class AntispamPlugin extends Plugin
           // find mailto links and turn them into plain text email addresses
           // (problem occurs with the flex-directory plugin)
           // also taking care of linked images
-          //$r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
           $r1 = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
           $content = preg_replace_callback($r1, array(get_class($this), 'munge'), $content);
 
-          // find plain text email addresses and replace them with munge() results, excluding responsive images and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
+          // find plain text email addresses and replace them with munge() results, excluding responsive images
+          // and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
           $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})/';
           $content = preg_replace_callback($r2, array(get_class($this), 'munge'), $content);
 
@@ -88,11 +88,11 @@ class AntispamPlugin extends Plugin
           // find mailto links and turn them into plain text email addresses
           // (problem occurs with the flex-directory plugin)
           // also taking care of linked images
-          //$r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
           $r = '`\<a([^>]+)href\=\"mailto\:([^">]+)\"([^>]*)\>(.*?)\<\/a\>`ism';
           $content = preg_replace_callback($r, array(get_class($this), 'munge'), $content);
 
-          // find plain text email addresses and replace them with munge() results, excluding responsive images and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
+          // find plain text email addresses and replace them with munge() results, excluding responsive images
+          // and anything wrapped in a mailto link (or rather, only get matches preceded by whitespace or >)
           $r2 = '/(?<=[\s|\>])([a-zA-Z0-9._%+-]+@(?!(\d)x\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,20})/';
           $content = preg_replace_callback($r2, array(get_class($this), 'munge'), $content);
 
@@ -102,14 +102,18 @@ class AntispamPlugin extends Plugin
 
     // taken from http://www.celticproductions.net/articles/10/email/php-email-obfuscator.html
     // with minor changes (while instead of for)
-    // (preg_replace_callback returns an array)
-    private function munge($array, $string = "link")
+    private function munge(array $array): string
     {
+
       if (count($array) < 4) {
+        // Plain-text email addresses
         $address = strtolower($array[1]);
       } else {
+        // Anchors containing mailto: addresses
         $address = strtolower($array[2]);
       }
+
+      // Generate cipher
       $coded = "";
       $unmixedkey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.@-_?=&/:";
       $inprogresskey = $unmixedkey;
@@ -127,16 +131,19 @@ class AntispamPlugin extends Plugin
       }
       $cipher = $mixedkey;
 
+      $txt = <<<'EOD'
+<script>
+// Email obfuscator script 2.1 by Tim Williams, University of Arizona
+// Random encryption key feature by Andrew Moulden, Site Engineering Ltd
+// PHP version coded by Ross Killen, Celtic Productions Ltd
+// This code is freeware provided these six comment lines remain intact
+// A wizard to generate this code is at http://www.jottings.com/obfuscator/
+// The PHP code may be obtained from http://www.celticproductions.net/
+
+EOD;
+
+      // Obfuscate $address using $cipher and store as $coded
       $shift = strlen($address);
-
-      $txt = "<script>\n" .
-      "// Email obfuscator script 2.1 by Tim Williams, University of Arizona\n".
-      "// Random encryption key feature by Andrew Moulden, Site Engineering Ltd\n".
-      "// PHP version coded by Ross Killen, Celtic Productions Ltd\n".
-      "// This code is freeware provided these six comment lines remain intact\n".
-      "// A wizard to generate this code is at http://www.jottings.com/obfuscator/\n".
-      "// The PHP code may be obtained from http://www.celticproductions.net/\n\n";
-
       for ($j=0; $j<strlen($address); $j++)
       {
           if (strpos($cipher,$address[$j]) == -1 )
@@ -151,45 +158,45 @@ class AntispamPlugin extends Plugin
           }
       }
 
+      // Determine anchor element content
+      $string = "link";
       if (array_key_exists(4, $array) && (strpos($array[4], '<img') === 0 || $array[4] != $array[2])) {
         $string = "'".$array[4]."'";
       }
 
-      $title = "";
-      $append = "";
+      // Pass other attributes through unchanged
+      $attribs = '';
       if (array_key_exists(3, $array)) {
-        if (strpos(trim($array[3]), 'title') === 0) {
-          $title = trim($array[3]);
-          $title = str_replace('"', '\"', $title);
-        } else {
-          $append = trim($array[3]);
-        }
+        $attribs = trim($array[1]).' '.trim($array[3]);
+        $attribs = str_replace('"', '\"', $attribs);
       }
 
-      // check plugin settings
+      // Add target="_blank" to links if specified in plugin config
       $config = $this->config();
       $target = "";
       if ($config['target']) {
         $target = " target='_blank'";
       }
-      $txt .= "\ncoded = \"" . $coded . "\"\n" .
-      " key = \"".$cipher."\"\n".
-      " shift=coded.length\n".
-      " link=\"\"\n".
-      " for (i=0; i<coded.length; i++) {\n" .
-      " if (key.indexOf(coded.charAt(i))==-1) {\n" .
-      " ltr = coded.charAt(i)\n" .
-      " link += (ltr)\n" .
-      " }\n" .
-      " else { \n".
-      " ltr = (key.indexOf(coded.charAt(i))-
-      shift+key.length) % key.length\n".
-      " link += (key.charAt(ltr))\n".
-      " }\n".
-      " }\n".
-      "document.write(\"<a href='mailto:\"+link+\"'$target $title>\"+".$string."+\"</a>\")\n" .
-      "\n".
-      "<" . "/script><noscript>".$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])."<"."/noscript>";
+
+      // Generate script and noscript tags
+      $txt .= <<<EOD
+coded = "{$coded}";
+key = "{$cipher}";
+shift = coded.length;
+link = "";
+for (i=0; i<coded.length; i++) {
+  if (key.indexOf(coded.charAt(i))==-1) {
+    ltr = coded.charAt(i);
+    link += (ltr)
+  } else {
+    ltr = (key.indexOf(coded.charAt(i))-shift+key.length) % key.length;
+    link += (key.charAt(ltr));
+  }
+}
+document.write("<a href='mailto:"+link+"'{$target} {$attribs}>"+{$string}+"</a>");
+</script><noscript>{$this->grav['language']->translate(['PLUGIN_ANTISPAM.NOSCRIPT'])}</noscript>
+EOD;
+
       return $txt;
     }
 }
