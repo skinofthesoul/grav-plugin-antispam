@@ -1,3 +1,9 @@
+# v1.5.7
+##  12-01-2023
+
+1. [](#bugfix)
+    * attributes like class can be passed via query parameter now (thanks @aricooperdavis!)
+
 # v1.5.6
 ##  02-09-2022
 
