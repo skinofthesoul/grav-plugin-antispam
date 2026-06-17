@@ -1,8 +1,14 @@
+# v1.5.8
+##  17-06-2026
+
+1. [](#improved)
+    * indication of compatibility with Grav 1.7 and 2.0
+
 # v1.5.7
 ##  12-01-2023
 
-1. [](#bugfix)
-    * attributes like class can be passed via query parameter now (thanks @aricooperdavis!)
+1. [](#new)
+    * attribute parameters are now passed through
 
 # v1.5.6
 ##  02-09-2022

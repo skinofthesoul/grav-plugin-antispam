@@ -11,6 +11,11 @@ bugs: https://github.com/skinofthesoul/grav-plugin-antispam/issues
 docs: https://github.com/skinofthesoul/grav-plugin-antispam/blob/master/README.md
 license: MIT
 
+compatibility:
+  grav:
+    - '1.7'
+    - '2.0'
+    
 form:
   validation: strict
   fields:
